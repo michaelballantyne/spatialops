@@ -23,36 +23,36 @@
  */
 
 #ifndef NEBO_BASIC_H
-#  define NEBO_BASIC_H
+   #define NEBO_BASIC_H
 
-#  include <spatialops/SpatialOpsConfigure.h>
-#  include <spatialops/structured/IndexTriplet.h>
-#  include <spatialops/structured/GhostData.h>
-#  include <spatialops/structured/SpatialField.h>
-#  include <spatialops/structured/SpatialMask.h>
-#  include <spatialops/structured/FVStaggeredFieldTypes.h>
-#  include <cmath>
-#  include <math.h>
+   #include <spatialops/SpatialOpsConfigure.h>
+   #include <spatialops/structured/IndexTriplet.h>
+   #include <spatialops/structured/GhostData.h>
+   #include <spatialops/structured/SpatialField.h>
+   #include <spatialops/structured/SpatialMask.h>
+   #include <spatialops/structured/FVStaggeredFieldTypes.h>
+   #include <cmath>
+   #include <math.h>
 
-#  ifdef NEBO_REPORT_BACKEND
-#     include <iostream>
-#  endif
+   #ifdef NEBO_REPORT_BACKEND
+      #include <iostream>
+   #endif
    /* NEBO_REPORT_BACKEND */
 
-#  ifdef FIELD_EXPRESSION_THREADS
-#     include <spatialops/SpatialOpsTools.h>
-#     include <vector>
-#     include <boost/bind.hpp>
-#     include <spatialops/ThreadPool.h>
-#     include <spatialops/structured/IntVec.h>
-#     include <spatialops/Semaphore.h>
-#  endif
+   #ifdef FIELD_EXPRESSION_THREADS
+      #include <spatialops/SpatialOpsTools.h>
+      #include <vector>
+      #include <boost/bind.hpp>
+      #include <spatialops/ThreadPool.h>
+      #include <spatialops/structured/IntVec.h>
+      #include <spatialops/Semaphore.h>
+   #endif
    /* FIELD_EXPRESSION_THREADS */
 
-#  ifdef __CUDACC__
-#     include <sstream>
-#     include <spatialops/structured/MemoryTypes.h>
-#  endif
+   #ifdef __CUDACC__
+      #include <sstream>
+      #include <spatialops/structured/MemoryTypes.h>
+   #endif
    /* __CUDACC__ */
 
    namespace SpatialOps {
@@ -264,14 +264,14 @@
 
       /* Modes: */
       struct Initial;
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          struct Resize
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       struct SeqWalk;
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          struct GPUWalk
-#     endif
+      #endif
       /* __CUDACC__ */;
       struct Reduction;
    } /* SpatialOps */

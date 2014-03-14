@@ -23,31 +23,31 @@
  */
 
 #ifndef NEBO_REDUCTIONS_H
-#  define NEBO_REDUCTIONS_H
+   #define NEBO_REDUCTIONS_H
 
-#  define field_fold nebo_fold
+   #define field_fold nebo_fold
 
-#  define field_fold_interior nebo_fold_interior
+   #define field_fold_interior nebo_fold_interior
 
-#  define field_reduce nebo_reduce
+   #define field_reduce nebo_reduce
 
-#  define field_reduce_interior nebo_reduce_interior
+   #define field_reduce_interior nebo_reduce_interior
 
-#  define field_max nebo_max
+   #define field_max nebo_max
 
-#  define field_max_interior nebo_max_interior
+   #define field_max_interior nebo_max_interior
 
-#  define field_min nebo_min
+   #define field_min nebo_min
 
-#  define field_min_interior nebo_min_interior
+   #define field_min_interior nebo_min_interior
 
-#  define field_sum nebo_sum
+   #define field_sum nebo_sum
 
-#  define field_sum_interior nebo_sum_interior
+   #define field_sum_interior nebo_sum_interior
 
-#  define field_norm nebo_norm
+   #define field_norm nebo_norm
 
-#  define field_norm_interior nebo_norm_interior
+   #define field_norm_interior nebo_norm_interior
 
    namespace SpatialOps {
       template<typename ResultType, typename ExprType, typename FieldType>

@@ -23,15 +23,15 @@
  */
 
 #ifndef NEBO_LHS_H
-#  define NEBO_LHS_H
+   #define NEBO_LHS_H
 
    namespace SpatialOps {
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename LhsType, typename RhsType>
           __global__ void gpu_assign_kernel(LhsType lhs, RhsType rhs) {
              lhs.assign(rhs);
           }
-#     endif
+      #endif
       /* __CUDACC__ */;
 
       template<typename CurrentMode, typename FieldType>
@@ -43,14 +43,14 @@
 
           NeboField<SeqWalk, FieldType> typedef SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              NeboField<Resize, FieldType> typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              NeboField<GPUWalk, FieldType> typedef GPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           NeboField<Reduction, FieldType> typedef ReductionType;
@@ -65,10 +65,10 @@
 
           template<typename RhsType>
            inline void assign(bool const useGhost, RhsType rhs) {
-#             ifdef __CUDACC__
-#                ifdef NEBO_GPU_TEST
+              #ifdef __CUDACC__
+                 #ifdef NEBO_GPU_TEST
                     gpu_test_assign<RhsType>(useGhost, rhs)
-#                else
+                 #else
                     if(gpu_ready()) {
                        if(rhs.gpu_ready(gpu_device_index())) {
                           gpu_assign<RhsType>(useGhost, rhs);
@@ -111,33 +111,33 @@
                           throw(std::runtime_error(msg.str()));;
                        };
                     }
-#                endif
+                 #endif
                  /* NEBO_GPU_TEST */
-#             else
+              #else
                  cpu_assign<RhsType>(useGhost, rhs)
-#             endif
+              #endif
               /* __CUDACC__ */;
            }
 
          private:
           template<typename RhsType>
            inline void cpu_assign(bool const useGhost, RhsType rhs) {
-#             ifdef FIELD_EXPRESSION_THREADS
+              #ifdef FIELD_EXPRESSION_THREADS
                  if(is_thread_parallel()) {
                     thread_parallel_assign<RhsType>(useGhost, rhs);
                  }
                  else { sequential_assign<RhsType>(useGhost, rhs); }
-#             else
+              #else
                  sequential_assign<RhsType>(useGhost, rhs)
-#             endif
+              #endif
               /* FIELD_EXPRESSION_THREADS */;
            }
 
           template<typename RhsType>
            inline void sequential_assign(bool const useGhost, RhsType rhs) {
-#             ifdef NEBO_REPORT_BACKEND
+              #ifdef NEBO_REPORT_BACKEND
                  std::cout << "Starting Nebo sequential" << std::endl
-#             endif
+              #endif
               /* NEBO_REPORT_BACKEND */;
 
               structured::GhostData rhs_ghosts = calculate_valid_ghost(useGhost,
@@ -155,9 +155,9 @@
                                                                                          0,
                                                                                          0)));
 
-#             ifdef NEBO_REPORT_BACKEND
+              #ifdef NEBO_REPORT_BACKEND
                  std::cout << "Finished Nebo sequential" << std::endl
-#             endif
+              #endif
               /* NEBO_REPORT_BACKEND */;
            }
 
@@ -168,13 +168,13 @@
                                  field_));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              template<typename RhsType>
               inline void thread_parallel_assign(bool const useGhost,
                                                  RhsType rhs) {
-#                ifdef NEBO_REPORT_BACKEND
+                 #ifdef NEBO_REPORT_BACKEND
                     std::cout << "Starting Nebo thread parallel" << std::endl
-#                endif
+                 #endif
                  /* NEBO_REPORT_BACKEND */;
 
                  Semaphore semaphore(0);
@@ -219,9 +219,9 @@
 
                  for(int ii = 0; ii < max; ii++) { semaphore.wait(); };
 
-#                ifdef NEBO_REPORT_BACKEND
+                 #ifdef NEBO_REPORT_BACKEND
                     std::cout << "Finished Nebo thread parallel" << std::endl
-#                endif
+                 #endif
                  /* NEBO_REPORT_BACKEND */;
               }
 
@@ -232,15 +232,15 @@
                                                                        plus)),
                                    field_));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              template<typename RhsType>
               inline void gpu_assign(bool const useGhost, RhsType rhs) {
-#                ifdef NEBO_REPORT_BACKEND
+                 #ifdef NEBO_REPORT_BACKEND
                     std::cout << "Starting Nebo CUDA" << std::endl
-#                endif
+                 #endif
                  /* NEBO_REPORT_BACKEND */;
 
                  structured::GhostData rhs_ghosts = calculate_valid_ghost(useGhost,
@@ -269,7 +269,7 @@
 
                  dim3 dimGrid(gDimX, gDimY);
 
-#                ifndef NDEBUG
+                 #ifndef NDEBUG
                     cudaError err;
 
                     if(cudaSuccess != (err = cudaStreamSynchronize(field_.get_stream())))
@@ -282,7 +282,7 @@
                        msg << "\t - " << __FILE__ << " : " << __LINE__;
                        throw(std::runtime_error(msg.str()));;
                     }
-#                endif
+                 #endif
                  /* NDEBUG */;
 
                  gpu_assign_kernel<GPUWalkType, RhsGPUWalkType><<<dimGrid,
@@ -298,7 +298,7 @@
                                                                                                              0),
                                                                                                       gpu_device_index()));
 
-#                ifndef NDEBUG
+                 #ifndef NDEBUG
                     if(cudaSuccess != (err = cudaStreamSynchronize(field_.get_stream())))
                     {
                        std::ostringstream msg;
@@ -309,12 +309,12 @@
                        msg << "\t - " << __FILE__ << " : " << __LINE__;
                        throw(std::runtime_error(msg.str()));;
                     }
-#                endif
+                 #endif
                  /* NDEBUG */;
 
-#                ifdef NEBO_REPORT_BACKEND
+                 #ifdef NEBO_REPORT_BACKEND
                     std::cout << "Finished Nebo CUDA" << std::endl
-#                endif
+                 #endif
                  /* NEBO_REPORT_BACKEND */;
               }
 
@@ -338,13 +338,13 @@
                                     field_));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 template<typename RhsType>
                  inline void gpu_test_assign(bool const useGhost, RhsType rhs) {
-#                   ifdef NEBO_REPORT_BACKEND
+                    #ifdef NEBO_REPORT_BACKEND
                        std::cout << "Starting Nebo CUDA with Nebo copying" <<
                        std::endl
-#                   endif
+                    #endif
                     /* NEBO_REPORT_BACKEND */;
 
                     rhs.gpu_prep(0);
@@ -373,20 +373,20 @@
                     }
                     else { gpu_assign<RhsType>(useGhost, rhs); };
 
-#                   ifdef NEBO_REPORT_BACKEND
+                    #ifdef NEBO_REPORT_BACKEND
                        std::cout << "Finished Nebo CUDA with Nebo copying" <<
                        std::endl
-#                   endif
+                    #endif
                     /* NEBO_REPORT_BACKEND */;
                  }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           FieldType field_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename FieldType>
           struct NeboField<Resize, FieldType> {
             public:
@@ -398,7 +398,7 @@
              : field_(f)
              {}
 
-#            ifdef FIELD_EXPRESSION_THREADS
+             #ifdef FIELD_EXPRESSION_THREADS
                 template<typename RhsType>
                  inline void assign(RhsType const & rhs,
                                     structured::IntVec const & split,
@@ -412,7 +412,7 @@
 
                     semaphore->post();
                  }
-#            endif
+             #endif
              /* FIELD_EXPRESSION_THREADS */
 
             private:
@@ -425,7 +425,7 @@
 
              FieldType field_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename FieldType>
        struct NeboField<SeqWalk, FieldType> {
@@ -456,7 +456,7 @@
 
           typename FieldType::iterator const end_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename FieldType>
           struct NeboField<GPUWalk, FieldType> {
             public:
@@ -534,7 +534,7 @@
 
              int const step_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
    } /* SpatialOps */
 

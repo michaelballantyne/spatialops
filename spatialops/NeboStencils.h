@@ -23,7 +23,7 @@
  */
 
 #ifndef NEBO_STENCILS_H
-#  define NEBO_STENCILS_H
+   #define NEBO_STENCILS_H
 
    namespace SpatialOps {
       template<int Length>
@@ -225,7 +225,7 @@
              }
           };
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              template<typename PreArg, typename DestType>
               struct ConstructGPUExpr {
                 NeboScalar<GPUWalk, typename DestType::value_type> typedef Coef;
@@ -267,7 +267,7 @@
                                               Coef(coefs.coef())));
                 }
              };
-#         endif
+          #endif
           /* __CUDACC__ */
 
           template<typename PreArg, typename DestType>
@@ -369,7 +369,7 @@
              }
           };
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              template<typename PreArg, typename DestType>
               struct SumConstructGPUExpr {
                 typename PreArg::GPUWalkType typedef Arg;
@@ -402,7 +402,7 @@
                                               deviceIndex));
                 }
              };
-#         endif
+          #endif
           /* __CUDACC__ */
 
           template<typename PreArg, typename DestType>
@@ -508,7 +508,7 @@
              }
           };
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              template<typename PreArg, typename DestType>
               struct ConstructGPUExpr {
                 NeboScalar<GPUWalk, typename DestType::value_type> typedef Coef;
@@ -535,7 +535,7 @@
                                  Coef(coefs.coef()));
                 }
              };
-#         endif
+          #endif
           /* __CUDACC__ */
 
           template<typename PreArg, typename DestType>
@@ -604,7 +604,7 @@
              }
           };
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              template<typename PreArg, typename DestType>
               struct SumConstructGPUExpr {
                 typename PreArg::GPUWalkType typedef Arg;
@@ -626,7 +626,7 @@
                                        deviceIndex);
                 }
              };
-#         endif
+          #endif
           /* __CUDACC__ */
 
           template<typename PreArg, typename DestType>
@@ -674,11 +674,11 @@
 
           typename ConstructExpr::Result typedef ArgSeqWalkType;
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              typename Pts::template ConstructGPUExpr<Arg, FieldType> typedef
              ConstructGPUExpr;
              typename ConstructGPUExpr::Result typedef ArgGPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           typename Pts::template ConstructReductionExpr<Arg, FieldType> typedef
@@ -689,16 +689,16 @@
           NeboStencil<SeqWalk, Pts, ArgSeqWalkType, FieldType> typedef
           SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              NeboStencil<Resize, Pts, typename Arg::ResizeType, FieldType>
              typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              NeboStencil<GPUWalk, Pts, ArgGPUWalkType, FieldType> typedef
              GPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           NeboStencil<Reduction, Pts, ArgReductionType, FieldType> typedef
@@ -722,15 +722,15 @@
                                                                coefs_));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(arg_.resize(minus, plus), coefs_);
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const { return arg_.cpu_ready(); }
 
              inline bool gpu_ready(int const deviceIndex) const {
@@ -749,13 +749,13 @@
                                                                       deviceIndex));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    arg_.gpu_prep(deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -773,7 +773,7 @@
 
           Coefs const coefs_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename Pts, typename Arg, typename FieldType>
           struct NeboStencil<Resize, Pts, Arg, FieldType> {
             public:
@@ -808,7 +808,7 @@
 
              Coefs const coefs_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename Pts, typename Arg, typename FieldType>
        struct NeboStencil<SeqWalk, Pts, Arg, FieldType> {
@@ -828,7 +828,7 @@
          private:
           Arg arg_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename Pts, typename Arg, typename FieldType>
           struct NeboStencil<GPUWalk, Pts, Arg, FieldType> {
             public:
@@ -851,7 +851,7 @@
             private:
              Arg arg_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename Pts, typename Arg, typename FieldType>
        struct NeboStencil<Reduction, Pts, Arg, FieldType> {
@@ -891,11 +891,11 @@
 
           typename ConstructExpr::Result typedef ArgSeqWalkType;
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              typename Pts::template SumConstructGPUExpr<Arg, FieldType> typedef
              ConstructGPUExpr;
              typename ConstructGPUExpr::Result typedef ArgGPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           typename Pts::template SumConstructReductionExpr<Arg, FieldType>
@@ -906,16 +906,16 @@
           NeboSumStencil<SeqWalk, Pts, ArgSeqWalkType, FieldType> typedef
           SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              NeboSumStencil<Resize, Pts, typename Arg::ResizeType, FieldType>
              typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              NeboSumStencil<GPUWalk, Pts, ArgGPUWalkType, FieldType> typedef
              GPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           NeboSumStencil<Reduction, Pts, ArgReductionType, FieldType> typedef
@@ -938,15 +938,15 @@
                                                                arg_));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(arg_.resize(minus, plus));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const { return arg_.cpu_ready(); }
 
              inline bool gpu_ready(int const deviceIndex) const {
@@ -964,13 +964,13 @@
                                                                       deviceIndex));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    arg_.gpu_prep(deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -985,7 +985,7 @@
          private:
           Arg const arg_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename Pts, typename Arg, typename FieldType>
           struct NeboSumStencil<Resize, Pts, Arg, FieldType> {
             public:
@@ -1015,7 +1015,7 @@
             private:
              Arg const arg_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename Pts, typename Arg, typename FieldType>
        struct NeboSumStencil<SeqWalk, Pts, Arg, FieldType> {
@@ -1035,7 +1035,7 @@
          private:
           Arg arg_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename Pts, typename Arg, typename FieldType>
           struct NeboSumStencil<GPUWalk, Pts, Arg, FieldType> {
             public:
@@ -1058,7 +1058,7 @@
             private:
              Arg arg_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename Pts, typename Arg, typename FieldType>
        struct NeboSumStencil<Reduction, Pts, Arg, FieldType> {
@@ -1102,9 +1102,9 @@
 
           typename Arg::SeqWalkType typedef ArgSeqWalkType;
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              typename Arg::GPUWalkType typedef ArgGPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           typename Arg::ReductionType typedef ArgReductionType;
@@ -1112,16 +1112,16 @@
           NeboMaskShift<SeqWalk, Point, ArgSeqWalkType, FieldType> typedef
           SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              NeboMaskShift<Resize, Point, typename Arg::ResizeType, FieldType>
              typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              NeboMaskShift<GPUWalk, Point, ArgGPUWalkType, FieldType> typedef
              GPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           NeboMaskShift<Reduction, Point, ArgReductionType, FieldType> typedef
@@ -1141,15 +1141,15 @@
              return SeqWalkType(arg_.init(minus, plus, shift + Point::int_vec()));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(arg_.resize(minus, plus));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const { return arg_.cpu_ready(); }
 
              inline bool gpu_ready(int const deviceIndex) const {
@@ -1166,13 +1166,13 @@
                                                  deviceIndex));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    arg_.gpu_prep(deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -1186,7 +1186,7 @@
          private:
           Arg const arg_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename Point, typename Arg, typename FieldType>
           struct NeboMaskShift<Resize, Point, Arg, FieldType> {
             public:
@@ -1212,7 +1212,7 @@
             private:
              Arg const arg_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename Point, typename Arg, typename FieldType>
        struct NeboMaskShift<SeqWalk, Point, Arg, FieldType> {
@@ -1232,7 +1232,7 @@
          private:
           Arg arg_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename Point, typename Arg, typename FieldType>
           struct NeboMaskShift<GPUWalk, Point, Arg, FieldType> {
             public:
@@ -1253,7 +1253,7 @@
             private:
              Arg arg_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename Point, typename Arg, typename FieldType>
        struct NeboMaskShift<Reduction, Point, Arg, FieldType> {

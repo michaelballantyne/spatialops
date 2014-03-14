@@ -23,7 +23,7 @@
  */
 
 #ifndef NEBO_RHS_H
-#  define NEBO_RHS_H
+   #define NEBO_RHS_H
 
    namespace SpatialOps {
       template<typename CurrentMode, typename AtomicType>
@@ -35,14 +35,14 @@
 
           NeboScalar<SeqWalk, AtomicType> typedef SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              NeboScalar<Resize, AtomicType> typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              NeboScalar<GPUWalk, AtomicType> typedef GPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           NeboScalar<Reduction, AtomicType> typedef ReductionType;
@@ -61,15 +61,15 @@
              return SeqWalkType(value_);
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(value_);
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const { return true; }
 
              inline bool gpu_ready(int const deviceIndex) const { return true; }
@@ -81,11 +81,11 @@
                 return GPUWalkType(value_);
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {}
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -97,7 +97,7 @@
          private:
           value_type const value_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename AtomicType>
           struct NeboScalar<Resize, AtomicType> {
             public:
@@ -118,7 +118,7 @@
             private:
              value_type const value_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename AtomicType>
        struct NeboScalar<SeqWalk, AtomicType> {
@@ -136,7 +136,7 @@
          private:
           value_type const value_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename AtomicType>
           struct NeboScalar<GPUWalk, AtomicType> {
             public:
@@ -155,7 +155,7 @@
             private:
              value_type const value_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename AtomicType>
        struct NeboScalar<Reduction, AtomicType> {
@@ -187,14 +187,14 @@
 
           NeboConstField<SeqWalk, FieldType> typedef SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              NeboConstField<Resize, FieldType> typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              NeboConstField<GPUWalk, FieldType> typedef GPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           NeboConstField<Reduction, FieldType> typedef ReductionType;
@@ -216,15 +216,15 @@
                                                               shift));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(resize_ghost(field_, minus, plus - field_.boundary_info().has_extra()));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const {
                 return field_.find_consumer(LOCAL_RAM, 0);
              }
@@ -244,14 +244,14 @@
                                                                  shift));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    const_cast<FieldType *>(&field_)->add_consumer(EXTERNAL_CUDA_GPU,
                                                                   deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -266,7 +266,7 @@
          private:
           FieldType const field_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename FieldType>
           struct NeboConstField<Resize, FieldType> {
             public:
@@ -290,7 +290,7 @@
             private:
              FieldType const field_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename FieldType>
        struct NeboConstField<SeqWalk, FieldType> {
@@ -310,7 +310,7 @@
          private:
           typename FieldType::const_iterator iter_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename FieldType>
           struct NeboConstField<GPUWalk, FieldType> {
             public:
@@ -342,7 +342,7 @@
 
              int const step_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename FieldType>
        struct NeboConstField<Reduction, FieldType> {
@@ -384,14 +384,14 @@
 
           NeboConstSingleValueField<SeqWalk, T> typedef SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              NeboConstSingleValueField<Resize, T> typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              NeboConstSingleValueField<GPUWalk, T> typedef GPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           NeboConstSingleValueField<Reduction, T> typedef ReductionType;
@@ -410,15 +410,15 @@
              return SeqWalkType(* field_.field_values(LOCAL_RAM));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(* field_.field_values(LOCAL_RAM));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const {
                 return field_.find_consumer(LOCAL_RAM, 0);
              }
@@ -434,14 +434,14 @@
                 return GPUWalkType(deviceIndex, field_);
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    const_cast<SingleValueFieldType *>(&field_)->add_consumer(EXTERNAL_CUDA_GPU,
                                                                              deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -453,7 +453,7 @@
          private:
           SingleValueFieldType const field_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename T>
           struct NeboConstSingleValueField<Resize, T> {
             public:
@@ -476,7 +476,7 @@
             private:
              double const value_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename T>
        struct NeboConstSingleValueField<SeqWalk, T> {
@@ -498,7 +498,7 @@
          private:
           double value_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename T>
           struct NeboConstSingleValueField<GPUWalk, T> {
             public:
@@ -529,7 +529,7 @@
 
              value_type value_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename T>
        struct NeboConstSingleValueField<Reduction, T> {

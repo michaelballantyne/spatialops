@@ -23,7 +23,7 @@
  */
 
 #ifndef NEBO_MASK_H
-#  define NEBO_MASK_H
+   #define NEBO_MASK_H
 
    namespace SpatialOps {
       template<typename CurrentMode, typename FieldType>
@@ -35,14 +35,14 @@
 
           NeboMask<SeqWalk, FieldType> typedef SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              NeboMask<Resize, FieldType> typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              NeboMask<GPUWalk, FieldType> typedef GPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           NeboMask<Reduction, FieldType> typedef ReductionType;
@@ -64,15 +64,15 @@
                                                               shift));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(resize_ghost(mask_, minus, plus - mask_.boundary_info().has_extra()));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const {
                 return mask_.find_consumer(LOCAL_RAM, 0);
              }
@@ -92,14 +92,14 @@
                                                                  shift));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    const_cast<structured::SpatialMask<FieldType> *>(&mask_)->
                    add_consumer(EXTERNAL_CUDA_GPU, deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -114,7 +114,7 @@
          private:
           structured::SpatialMask<FieldType> const mask_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename FieldType>
           struct NeboMask<Resize, FieldType> {
             public:
@@ -138,7 +138,7 @@
             private:
              structured::SpatialMask<FieldType> const mask_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename FieldType>
        struct NeboMask<SeqWalk, FieldType> {
@@ -158,7 +158,7 @@
          private:
           typename structured::SpatialMask<FieldType>::const_iterator iter_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename FieldType>
           struct NeboMask<GPUWalk, FieldType> {
             public:
@@ -218,7 +218,7 @@
 
              int const step_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename FieldType>
        struct NeboMask<Reduction, FieldType> {

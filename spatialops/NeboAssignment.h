@@ -23,7 +23,7 @@
  */
 
 #ifndef NEBO_ASSIGNMENT_H
-#  define NEBO_ASSIGNMENT_H
+   #define NEBO_ASSIGNMENT_H
 
    namespace SpatialOps {
       template<typename FieldType>

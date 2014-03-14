@@ -23,7 +23,7 @@
  */
 
 #ifndef NEBO_OPERATORS_H
-#  define NEBO_OPERATORS_H
+   #define NEBO_OPERATORS_H
 
    namespace SpatialOps {
       template<typename CurrentMode, typename Operand1, typename Operand2>
@@ -35,18 +35,18 @@
                 typename Operand1::SeqWalkType,
                 typename Operand2::SeqWalkType> typedef SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              SumOp<Resize,
                    typename Operand1::ResizeType,
                    typename Operand2::ResizeType> typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              SumOp<GPUWalk,
                    typename Operand1::GPUWalkType,
                    typename Operand2::GPUWalkType> typedef GPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           SumOp<Reduction,
@@ -68,16 +68,16 @@
                                 operand2_.init(minus, plus, shift));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(operand1_.resize(minus, plus),
                                   operand2_.resize(minus, plus));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const {
                 return (operand1_.cpu_ready() && operand2_.cpu_ready());
              }
@@ -100,13 +100,13 @@
                                                       deviceIndex));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    operand1_.gpu_prep(deviceIndex); operand2_.gpu_prep(deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -121,7 +121,7 @@
 
           Operand2 const operand2_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename Operand1, typename Operand2>
           struct SumOp<Resize, Operand1, Operand2> {
             public:
@@ -145,7 +145,7 @@
 
              Operand2 const operand2_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename Operand1, typename Operand2>
        struct SumOp<SeqWalk, Operand1, Operand2> {
@@ -167,7 +167,7 @@
 
           Operand2 operand2_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename Operand1, typename Operand2>
           struct SumOp<GPUWalk, Operand1, Operand2> {
             public:
@@ -198,7 +198,7 @@
 
              Operand2 operand2_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename Operand1, typename Operand2>
        struct SumOp<Reduction, Operand1, Operand2> {
@@ -820,18 +820,18 @@
                  typename Operand1::SeqWalkType,
                  typename Operand2::SeqWalkType> typedef SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              DiffOp<Resize,
                     typename Operand1::ResizeType,
                     typename Operand2::ResizeType> typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              DiffOp<GPUWalk,
                     typename Operand1::GPUWalkType,
                     typename Operand2::GPUWalkType> typedef GPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           DiffOp<Reduction,
@@ -853,16 +853,16 @@
                                 operand2_.init(minus, plus, shift));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(operand1_.resize(minus, plus),
                                   operand2_.resize(minus, plus));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const {
                 return (operand1_.cpu_ready() && operand2_.cpu_ready());
              }
@@ -885,13 +885,13 @@
                                                       deviceIndex));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    operand1_.gpu_prep(deviceIndex); operand2_.gpu_prep(deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -906,7 +906,7 @@
 
           Operand2 const operand2_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename Operand1, typename Operand2>
           struct DiffOp<Resize, Operand1, Operand2> {
             public:
@@ -930,7 +930,7 @@
 
              Operand2 const operand2_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename Operand1, typename Operand2>
        struct DiffOp<SeqWalk, Operand1, Operand2> {
@@ -952,7 +952,7 @@
 
           Operand2 operand2_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename Operand1, typename Operand2>
           struct DiffOp<GPUWalk, Operand1, Operand2> {
             public:
@@ -983,7 +983,7 @@
 
              Operand2 operand2_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename Operand1, typename Operand2>
        struct DiffOp<Reduction, Operand1, Operand2> {
@@ -1605,18 +1605,18 @@
                  typename Operand1::SeqWalkType,
                  typename Operand2::SeqWalkType> typedef SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              ProdOp<Resize,
                     typename Operand1::ResizeType,
                     typename Operand2::ResizeType> typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              ProdOp<GPUWalk,
                     typename Operand1::GPUWalkType,
                     typename Operand2::GPUWalkType> typedef GPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           ProdOp<Reduction,
@@ -1638,16 +1638,16 @@
                                 operand2_.init(minus, plus, shift));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(operand1_.resize(minus, plus),
                                   operand2_.resize(minus, plus));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const {
                 return (operand1_.cpu_ready() && operand2_.cpu_ready());
              }
@@ -1670,13 +1670,13 @@
                                                       deviceIndex));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    operand1_.gpu_prep(deviceIndex); operand2_.gpu_prep(deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -1691,7 +1691,7 @@
 
           Operand2 const operand2_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename Operand1, typename Operand2>
           struct ProdOp<Resize, Operand1, Operand2> {
             public:
@@ -1715,7 +1715,7 @@
 
              Operand2 const operand2_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename Operand1, typename Operand2>
        struct ProdOp<SeqWalk, Operand1, Operand2> {
@@ -1737,7 +1737,7 @@
 
           Operand2 operand2_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename Operand1, typename Operand2>
           struct ProdOp<GPUWalk, Operand1, Operand2> {
             public:
@@ -1768,7 +1768,7 @@
 
              Operand2 operand2_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename Operand1, typename Operand2>
        struct ProdOp<Reduction, Operand1, Operand2> {
@@ -2390,18 +2390,18 @@
                 typename Operand1::SeqWalkType,
                 typename Operand2::SeqWalkType> typedef SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              DivOp<Resize,
                    typename Operand1::ResizeType,
                    typename Operand2::ResizeType> typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              DivOp<GPUWalk,
                    typename Operand1::GPUWalkType,
                    typename Operand2::GPUWalkType> typedef GPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           DivOp<Reduction,
@@ -2423,16 +2423,16 @@
                                 operand2_.init(minus, plus, shift));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(operand1_.resize(minus, plus),
                                   operand2_.resize(minus, plus));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const {
                 return (operand1_.cpu_ready() && operand2_.cpu_ready());
              }
@@ -2455,13 +2455,13 @@
                                                       deviceIndex));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    operand1_.gpu_prep(deviceIndex); operand2_.gpu_prep(deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -2476,7 +2476,7 @@
 
           Operand2 const operand2_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename Operand1, typename Operand2>
           struct DivOp<Resize, Operand1, Operand2> {
             public:
@@ -2500,7 +2500,7 @@
 
              Operand2 const operand2_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename Operand1, typename Operand2>
        struct DivOp<SeqWalk, Operand1, Operand2> {
@@ -2522,7 +2522,7 @@
 
           Operand2 operand2_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename Operand1, typename Operand2>
           struct DivOp<GPUWalk, Operand1, Operand2> {
             public:
@@ -2553,7 +2553,7 @@
 
              Operand2 operand2_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename Operand1, typename Operand2>
        struct DivOp<Reduction, Operand1, Operand2> {
@@ -3173,14 +3173,14 @@
          public:
           SinFcn<SeqWalk, typename Operand::SeqWalkType> typedef SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              SinFcn<Resize, typename Operand::ResizeType> typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              SinFcn<GPUWalk, typename Operand::GPUWalkType> typedef GPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           SinFcn<Reduction, typename Operand::ReductionType> typedef
@@ -3200,15 +3200,15 @@
              return SeqWalkType(operand_.init(minus, plus, shift));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(operand_.resize(minus, plus));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const { return (operand_.cpu_ready()); }
 
              inline bool gpu_ready(int const deviceIndex) const {
@@ -3225,13 +3225,13 @@
                                                      deviceIndex));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    operand_.gpu_prep(deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -3243,7 +3243,7 @@
          private:
           Operand const operand_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename Operand>
           struct SinFcn<Resize, Operand> {
             public:
@@ -3262,7 +3262,7 @@
             private:
              Operand const operand_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename Operand>
        struct SinFcn<SeqWalk, Operand> {
@@ -3282,7 +3282,7 @@
          private:
           Operand operand_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename Operand>
           struct SinFcn<GPUWalk, Operand> {
             public:
@@ -3303,7 +3303,7 @@
             private:
              Operand operand_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename Operand>
        struct SinFcn<Reduction, Operand> {
@@ -3397,14 +3397,14 @@
          public:
           CosFcn<SeqWalk, typename Operand::SeqWalkType> typedef SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              CosFcn<Resize, typename Operand::ResizeType> typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              CosFcn<GPUWalk, typename Operand::GPUWalkType> typedef GPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           CosFcn<Reduction, typename Operand::ReductionType> typedef
@@ -3424,15 +3424,15 @@
              return SeqWalkType(operand_.init(minus, plus, shift));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(operand_.resize(minus, plus));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const { return (operand_.cpu_ready()); }
 
              inline bool gpu_ready(int const deviceIndex) const {
@@ -3449,13 +3449,13 @@
                                                      deviceIndex));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    operand_.gpu_prep(deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -3467,7 +3467,7 @@
          private:
           Operand const operand_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename Operand>
           struct CosFcn<Resize, Operand> {
             public:
@@ -3486,7 +3486,7 @@
             private:
              Operand const operand_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename Operand>
        struct CosFcn<SeqWalk, Operand> {
@@ -3506,7 +3506,7 @@
          private:
           Operand operand_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename Operand>
           struct CosFcn<GPUWalk, Operand> {
             public:
@@ -3527,7 +3527,7 @@
             private:
              Operand operand_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename Operand>
        struct CosFcn<Reduction, Operand> {
@@ -3621,14 +3621,14 @@
          public:
           TanFcn<SeqWalk, typename Operand::SeqWalkType> typedef SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              TanFcn<Resize, typename Operand::ResizeType> typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              TanFcn<GPUWalk, typename Operand::GPUWalkType> typedef GPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           TanFcn<Reduction, typename Operand::ReductionType> typedef
@@ -3648,15 +3648,15 @@
              return SeqWalkType(operand_.init(minus, plus, shift));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(operand_.resize(minus, plus));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const { return (operand_.cpu_ready()); }
 
              inline bool gpu_ready(int const deviceIndex) const {
@@ -3673,13 +3673,13 @@
                                                      deviceIndex));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    operand_.gpu_prep(deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -3691,7 +3691,7 @@
          private:
           Operand const operand_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename Operand>
           struct TanFcn<Resize, Operand> {
             public:
@@ -3710,7 +3710,7 @@
             private:
              Operand const operand_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename Operand>
        struct TanFcn<SeqWalk, Operand> {
@@ -3730,7 +3730,7 @@
          private:
           Operand operand_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename Operand>
           struct TanFcn<GPUWalk, Operand> {
             public:
@@ -3751,7 +3751,7 @@
             private:
              Operand operand_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename Operand>
        struct TanFcn<Reduction, Operand> {
@@ -3845,14 +3845,14 @@
          public:
           ExpFcn<SeqWalk, typename Operand::SeqWalkType> typedef SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              ExpFcn<Resize, typename Operand::ResizeType> typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              ExpFcn<GPUWalk, typename Operand::GPUWalkType> typedef GPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           ExpFcn<Reduction, typename Operand::ReductionType> typedef
@@ -3872,15 +3872,15 @@
              return SeqWalkType(operand_.init(minus, plus, shift));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(operand_.resize(minus, plus));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const { return (operand_.cpu_ready()); }
 
              inline bool gpu_ready(int const deviceIndex) const {
@@ -3897,13 +3897,13 @@
                                                      deviceIndex));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    operand_.gpu_prep(deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -3915,7 +3915,7 @@
          private:
           Operand const operand_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename Operand>
           struct ExpFcn<Resize, Operand> {
             public:
@@ -3934,7 +3934,7 @@
             private:
              Operand const operand_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename Operand>
        struct ExpFcn<SeqWalk, Operand> {
@@ -3954,7 +3954,7 @@
          private:
           Operand operand_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename Operand>
           struct ExpFcn<GPUWalk, Operand> {
             public:
@@ -3975,7 +3975,7 @@
             private:
              Operand operand_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename Operand>
        struct ExpFcn<Reduction, Operand> {
@@ -4069,15 +4069,15 @@
          public:
           TanhFcn<SeqWalk, typename Operand::SeqWalkType> typedef SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              TanhFcn<Resize, typename Operand::ResizeType> typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              TanhFcn<GPUWalk, typename Operand::GPUWalkType> typedef GPUWalkType
              ;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           TanhFcn<Reduction, typename Operand::ReductionType> typedef
@@ -4097,15 +4097,15 @@
              return SeqWalkType(operand_.init(minus, plus, shift));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(operand_.resize(minus, plus));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const { return (operand_.cpu_ready()); }
 
              inline bool gpu_ready(int const deviceIndex) const {
@@ -4122,13 +4122,13 @@
                                                      deviceIndex));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    operand_.gpu_prep(deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -4140,7 +4140,7 @@
          private:
           Operand const operand_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename Operand>
           struct TanhFcn<Resize, Operand> {
             public:
@@ -4160,7 +4160,7 @@
             private:
              Operand const operand_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename Operand>
        struct TanhFcn<SeqWalk, Operand> {
@@ -4180,7 +4180,7 @@
          private:
           Operand operand_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename Operand>
           struct TanhFcn<GPUWalk, Operand> {
             public:
@@ -4201,7 +4201,7 @@
             private:
              Operand operand_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename Operand>
        struct TanhFcn<Reduction, Operand> {
@@ -4295,14 +4295,14 @@
          public:
           AbsFcn<SeqWalk, typename Operand::SeqWalkType> typedef SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              AbsFcn<Resize, typename Operand::ResizeType> typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              AbsFcn<GPUWalk, typename Operand::GPUWalkType> typedef GPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           AbsFcn<Reduction, typename Operand::ReductionType> typedef
@@ -4322,15 +4322,15 @@
              return SeqWalkType(operand_.init(minus, plus, shift));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(operand_.resize(minus, plus));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const { return (operand_.cpu_ready()); }
 
              inline bool gpu_ready(int const deviceIndex) const {
@@ -4347,13 +4347,13 @@
                                                      deviceIndex));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    operand_.gpu_prep(deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -4365,7 +4365,7 @@
          private:
           Operand const operand_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename Operand>
           struct AbsFcn<Resize, Operand> {
             public:
@@ -4384,7 +4384,7 @@
             private:
              Operand const operand_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename Operand>
        struct AbsFcn<SeqWalk, Operand> {
@@ -4404,7 +4404,7 @@
          private:
           Operand operand_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename Operand>
           struct AbsFcn<GPUWalk, Operand> {
             public:
@@ -4425,7 +4425,7 @@
             private:
              Operand operand_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename Operand>
        struct AbsFcn<Reduction, Operand> {
@@ -4519,14 +4519,14 @@
          public:
           NegFcn<SeqWalk, typename Operand::SeqWalkType> typedef SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              NegFcn<Resize, typename Operand::ResizeType> typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              NegFcn<GPUWalk, typename Operand::GPUWalkType> typedef GPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           NegFcn<Reduction, typename Operand::ReductionType> typedef
@@ -4546,15 +4546,15 @@
              return SeqWalkType(operand_.init(minus, plus, shift));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(operand_.resize(minus, plus));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const { return (operand_.cpu_ready()); }
 
              inline bool gpu_ready(int const deviceIndex) const {
@@ -4571,13 +4571,13 @@
                                                      deviceIndex));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    operand_.gpu_prep(deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -4589,7 +4589,7 @@
          private:
           Operand const operand_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename Operand>
           struct NegFcn<Resize, Operand> {
             public:
@@ -4608,7 +4608,7 @@
             private:
              Operand const operand_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename Operand>
        struct NegFcn<SeqWalk, Operand> {
@@ -4626,7 +4626,7 @@
          private:
           Operand operand_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename Operand>
           struct NegFcn<GPUWalk, Operand> {
             public:
@@ -4647,7 +4647,7 @@
             private:
              Operand operand_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename Operand>
        struct NegFcn<Reduction, Operand> {
@@ -4744,18 +4744,18 @@
                  typename Operand1::SeqWalkType,
                  typename Operand2::SeqWalkType> typedef SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              PowFcn<Resize,
                     typename Operand1::ResizeType,
                     typename Operand2::ResizeType> typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              PowFcn<GPUWalk,
                     typename Operand1::GPUWalkType,
                     typename Operand2::GPUWalkType> typedef GPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           PowFcn<Reduction,
@@ -4777,16 +4777,16 @@
                                 operand2_.init(minus, plus, shift));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(operand1_.resize(minus, plus),
                                   operand2_.resize(minus, plus));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const {
                 return (operand1_.cpu_ready() && operand2_.cpu_ready());
              }
@@ -4809,13 +4809,13 @@
                                                       deviceIndex));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    operand1_.gpu_prep(deviceIndex); operand2_.gpu_prep(deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -4830,7 +4830,7 @@
 
           Operand2 const operand2_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename Operand1, typename Operand2>
           struct PowFcn<Resize, Operand1, Operand2> {
             public:
@@ -4854,7 +4854,7 @@
 
              Operand2 const operand2_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename Operand1, typename Operand2>
        struct PowFcn<SeqWalk, Operand1, Operand2> {
@@ -4876,7 +4876,7 @@
 
           Operand2 operand2_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename Operand1, typename Operand2>
           struct PowFcn<GPUWalk, Operand1, Operand2> {
             public:
@@ -4907,7 +4907,7 @@
 
              Operand2 operand2_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename Operand1, typename Operand2>
        struct PowFcn<Reduction, Operand1, Operand2> {
@@ -5532,15 +5532,15 @@
          public:
           SqrtFcn<SeqWalk, typename Operand::SeqWalkType> typedef SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              SqrtFcn<Resize, typename Operand::ResizeType> typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              SqrtFcn<GPUWalk, typename Operand::GPUWalkType> typedef GPUWalkType
              ;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           SqrtFcn<Reduction, typename Operand::ReductionType> typedef
@@ -5560,15 +5560,15 @@
              return SeqWalkType(operand_.init(minus, plus, shift));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(operand_.resize(minus, plus));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const { return (operand_.cpu_ready()); }
 
              inline bool gpu_ready(int const deviceIndex) const {
@@ -5585,13 +5585,13 @@
                                                      deviceIndex));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    operand_.gpu_prep(deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -5603,7 +5603,7 @@
          private:
           Operand const operand_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename Operand>
           struct SqrtFcn<Resize, Operand> {
             public:
@@ -5623,7 +5623,7 @@
             private:
              Operand const operand_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename Operand>
        struct SqrtFcn<SeqWalk, Operand> {
@@ -5643,7 +5643,7 @@
          private:
           Operand operand_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename Operand>
           struct SqrtFcn<GPUWalk, Operand> {
             public:
@@ -5664,7 +5664,7 @@
             private:
              Operand operand_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename Operand>
        struct SqrtFcn<Reduction, Operand> {
@@ -5758,14 +5758,14 @@
          public:
           LogFcn<SeqWalk, typename Operand::SeqWalkType> typedef SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              LogFcn<Resize, typename Operand::ResizeType> typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              LogFcn<GPUWalk, typename Operand::GPUWalkType> typedef GPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           LogFcn<Reduction, typename Operand::ReductionType> typedef
@@ -5785,15 +5785,15 @@
              return SeqWalkType(operand_.init(minus, plus, shift));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(operand_.resize(minus, plus));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const { return (operand_.cpu_ready()); }
 
              inline bool gpu_ready(int const deviceIndex) const {
@@ -5810,13 +5810,13 @@
                                                      deviceIndex));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    operand_.gpu_prep(deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -5828,7 +5828,7 @@
          private:
           Operand const operand_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename Operand>
           struct LogFcn<Resize, Operand> {
             public:
@@ -5847,7 +5847,7 @@
             private:
              Operand const operand_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename Operand>
        struct LogFcn<SeqWalk, Operand> {
@@ -5867,7 +5867,7 @@
          private:
           Operand operand_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename Operand>
           struct LogFcn<GPUWalk, Operand> {
             public:
@@ -5888,7 +5888,7 @@
             private:
              Operand operand_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename Operand>
        struct LogFcn<Reduction, Operand> {
@@ -5982,15 +5982,15 @@
          public:
           Log10Fcn<SeqWalk, typename Operand::SeqWalkType> typedef SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              Log10Fcn<Resize, typename Operand::ResizeType> typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              Log10Fcn<GPUWalk, typename Operand::GPUWalkType> typedef
              GPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           Log10Fcn<Reduction, typename Operand::ReductionType> typedef
@@ -6010,15 +6010,15 @@
              return SeqWalkType(operand_.init(minus, plus, shift));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(operand_.resize(minus, plus));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const { return (operand_.cpu_ready()); }
 
              inline bool gpu_ready(int const deviceIndex) const {
@@ -6035,13 +6035,13 @@
                                                      deviceIndex));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    operand_.gpu_prep(deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -6053,7 +6053,7 @@
          private:
           Operand const operand_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename Operand>
           struct Log10Fcn<Resize, Operand> {
             public:
@@ -6073,7 +6073,7 @@
             private:
              Operand const operand_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename Operand>
        struct Log10Fcn<SeqWalk, Operand> {
@@ -6093,7 +6093,7 @@
          private:
           Operand operand_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename Operand>
           struct Log10Fcn<GPUWalk, Operand> {
             public:
@@ -6114,7 +6114,7 @@
             private:
              Operand operand_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename Operand>
        struct Log10Fcn<Reduction, Operand> {
@@ -6209,14 +6209,14 @@
          public:
           ErfFcn<SeqWalk, typename Operand::SeqWalkType> typedef SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              ErfFcn<Resize, typename Operand::ResizeType> typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              ErfFcn<GPUWalk, typename Operand::GPUWalkType> typedef GPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           ErfFcn<Reduction, typename Operand::ReductionType> typedef
@@ -6236,15 +6236,15 @@
              return SeqWalkType(operand_.init(minus, plus, shift));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(operand_.resize(minus, plus));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const { return (operand_.cpu_ready()); }
 
              inline bool gpu_ready(int const deviceIndex) const {
@@ -6261,13 +6261,13 @@
                                                      deviceIndex));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    operand_.gpu_prep(deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -6279,7 +6279,7 @@
          private:
           Operand const operand_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename Operand>
           struct ErfFcn<Resize, Operand> {
             public:
@@ -6298,7 +6298,7 @@
             private:
              Operand const operand_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename Operand>
        struct ErfFcn<SeqWalk, Operand> {
@@ -6316,7 +6316,7 @@
          private:
           Operand operand_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename Operand>
           struct ErfFcn<GPUWalk, Operand> {
             public:
@@ -6337,7 +6337,7 @@
             private:
              Operand operand_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename Operand>
        struct ErfFcn<Reduction, Operand> {
@@ -6429,15 +6429,15 @@
          public:
           ErfcFcn<SeqWalk, typename Operand::SeqWalkType> typedef SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              ErfcFcn<Resize, typename Operand::ResizeType> typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              ErfcFcn<GPUWalk, typename Operand::GPUWalkType> typedef GPUWalkType
              ;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           ErfcFcn<Reduction, typename Operand::ReductionType> typedef
@@ -6457,15 +6457,15 @@
              return SeqWalkType(operand_.init(minus, plus, shift));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(operand_.resize(minus, plus));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const { return (operand_.cpu_ready()); }
 
              inline bool gpu_ready(int const deviceIndex) const {
@@ -6482,13 +6482,13 @@
                                                      deviceIndex));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    operand_.gpu_prep(deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -6500,7 +6500,7 @@
          private:
           Operand const operand_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename Operand>
           struct ErfcFcn<Resize, Operand> {
             public:
@@ -6520,7 +6520,7 @@
             private:
              Operand const operand_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename Operand>
        struct ErfcFcn<SeqWalk, Operand> {
@@ -6538,7 +6538,7 @@
          private:
           Operand operand_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename Operand>
           struct ErfcFcn<GPUWalk, Operand> {
             public:
@@ -6559,7 +6559,7 @@
             private:
              Operand operand_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename Operand>
        struct ErfcFcn<Reduction, Operand> {
@@ -6653,18 +6653,18 @@
                    typename Operand1::SeqWalkType,
                    typename Operand2::SeqWalkType> typedef SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              EqualCmp<Resize,
                       typename Operand1::ResizeType,
                       typename Operand2::ResizeType> typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              EqualCmp<GPUWalk,
                       typename Operand1::GPUWalkType,
                       typename Operand2::GPUWalkType> typedef GPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           EqualCmp<Reduction,
@@ -6686,16 +6686,16 @@
                                 operand2_.init(minus, plus, shift));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(operand1_.resize(minus, plus),
                                   operand2_.resize(minus, plus));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const {
                 return (operand1_.cpu_ready() && operand2_.cpu_ready());
              }
@@ -6718,13 +6718,13 @@
                                                       deviceIndex));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    operand1_.gpu_prep(deviceIndex); operand2_.gpu_prep(deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -6739,7 +6739,7 @@
 
           Operand2 const operand2_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename Operand1, typename Operand2>
           struct EqualCmp<Resize, Operand1, Operand2> {
             public:
@@ -6763,7 +6763,7 @@
 
              Operand2 const operand2_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename Operand1, typename Operand2>
        struct EqualCmp<SeqWalk, Operand1, Operand2> {
@@ -6785,7 +6785,7 @@
 
           Operand2 operand2_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename Operand1, typename Operand2>
           struct EqualCmp<GPUWalk, Operand1, Operand2> {
             public:
@@ -6816,7 +6816,7 @@
 
              Operand2 operand2_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename Operand1, typename Operand2>
        struct EqualCmp<Reduction, Operand1, Operand2> {
@@ -7516,18 +7516,18 @@
                      typename Operand1::SeqWalkType,
                      typename Operand2::SeqWalkType> typedef SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              InequalCmp<Resize,
                         typename Operand1::ResizeType,
                         typename Operand2::ResizeType> typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              InequalCmp<GPUWalk,
                         typename Operand1::GPUWalkType,
                         typename Operand2::GPUWalkType> typedef GPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           InequalCmp<Reduction,
@@ -7549,16 +7549,16 @@
                                 operand2_.init(minus, plus, shift));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(operand1_.resize(minus, plus),
                                   operand2_.resize(minus, plus));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const {
                 return (operand1_.cpu_ready() && operand2_.cpu_ready());
              }
@@ -7581,13 +7581,13 @@
                                                       deviceIndex));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    operand1_.gpu_prep(deviceIndex); operand2_.gpu_prep(deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -7602,7 +7602,7 @@
 
           Operand2 const operand2_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename Operand1, typename Operand2>
           struct InequalCmp<Resize, Operand1, Operand2> {
             public:
@@ -7626,7 +7626,7 @@
 
              Operand2 const operand2_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename Operand1, typename Operand2>
        struct InequalCmp<SeqWalk, Operand1, Operand2> {
@@ -7648,7 +7648,7 @@
 
           Operand2 operand2_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename Operand1, typename Operand2>
           struct InequalCmp<GPUWalk, Operand1, Operand2> {
             public:
@@ -7679,7 +7679,7 @@
 
              Operand2 operand2_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename Operand1, typename Operand2>
        struct InequalCmp<Reduction, Operand1, Operand2> {
@@ -8382,18 +8382,18 @@
                       typename Operand1::SeqWalkType,
                       typename Operand2::SeqWalkType> typedef SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              LessThanCmp<Resize,
                          typename Operand1::ResizeType,
                          typename Operand2::ResizeType> typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              LessThanCmp<GPUWalk,
                          typename Operand1::GPUWalkType,
                          typename Operand2::GPUWalkType> typedef GPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           LessThanCmp<Reduction,
@@ -8415,16 +8415,16 @@
                                 operand2_.init(minus, plus, shift));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(operand1_.resize(minus, plus),
                                   operand2_.resize(minus, plus));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const {
                 return (operand1_.cpu_ready() && operand2_.cpu_ready());
              }
@@ -8447,13 +8447,13 @@
                                                       deviceIndex));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    operand1_.gpu_prep(deviceIndex); operand2_.gpu_prep(deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -8468,7 +8468,7 @@
 
           Operand2 const operand2_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename Operand1, typename Operand2>
           struct LessThanCmp<Resize, Operand1, Operand2> {
             public:
@@ -8492,7 +8492,7 @@
 
              Operand2 const operand2_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename Operand1, typename Operand2>
        struct LessThanCmp<SeqWalk, Operand1, Operand2> {
@@ -8514,7 +8514,7 @@
 
           Operand2 operand2_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename Operand1, typename Operand2>
           struct LessThanCmp<GPUWalk, Operand1, Operand2> {
             public:
@@ -8545,7 +8545,7 @@
 
              Operand2 operand2_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename Operand1, typename Operand2>
        struct LessThanCmp<Reduction, Operand1, Operand2> {
@@ -9230,19 +9230,19 @@
                            typename Operand1::SeqWalkType,
                            typename Operand2::SeqWalkType> typedef SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              LessThanEqualCmp<Resize,
                               typename Operand1::ResizeType,
                               typename Operand2::ResizeType> typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              LessThanEqualCmp<GPUWalk,
                               typename Operand1::GPUWalkType,
                               typename Operand2::GPUWalkType> typedef
              GPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           LessThanEqualCmp<Reduction,
@@ -9265,16 +9265,16 @@
                                 operand2_.init(minus, plus, shift));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(operand1_.resize(minus, plus),
                                   operand2_.resize(minus, plus));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const {
                 return (operand1_.cpu_ready() && operand2_.cpu_ready());
              }
@@ -9297,13 +9297,13 @@
                                                       deviceIndex));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    operand1_.gpu_prep(deviceIndex); operand2_.gpu_prep(deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -9318,7 +9318,7 @@
 
           Operand2 const operand2_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename Operand1, typename Operand2>
           struct LessThanEqualCmp<Resize, Operand1, Operand2> {
             public:
@@ -9344,7 +9344,7 @@
 
              Operand2 const operand2_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename Operand1, typename Operand2>
        struct LessThanEqualCmp<SeqWalk, Operand1, Operand2> {
@@ -9366,7 +9366,7 @@
 
           Operand2 operand2_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename Operand1, typename Operand2>
           struct LessThanEqualCmp<GPUWalk, Operand1, Operand2> {
             public:
@@ -9398,7 +9398,7 @@
 
              Operand2 operand2_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename Operand1, typename Operand2>
        struct LessThanEqualCmp<Reduction, Operand1, Operand2> {
@@ -10123,18 +10123,18 @@
                          typename Operand1::SeqWalkType,
                          typename Operand2::SeqWalkType> typedef SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              GreaterThanCmp<Resize,
                             typename Operand1::ResizeType,
                             typename Operand2::ResizeType> typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              GreaterThanCmp<GPUWalk,
                             typename Operand1::GPUWalkType,
                             typename Operand2::GPUWalkType> typedef GPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           GreaterThanCmp<Reduction,
@@ -10157,16 +10157,16 @@
                                 operand2_.init(minus, plus, shift));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(operand1_.resize(minus, plus),
                                   operand2_.resize(minus, plus));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const {
                 return (operand1_.cpu_ready() && operand2_.cpu_ready());
              }
@@ -10189,13 +10189,13 @@
                                                       deviceIndex));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    operand1_.gpu_prep(deviceIndex); operand2_.gpu_prep(deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -10210,7 +10210,7 @@
 
           Operand2 const operand2_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename Operand1, typename Operand2>
           struct GreaterThanCmp<Resize, Operand1, Operand2> {
             public:
@@ -10234,7 +10234,7 @@
 
              Operand2 const operand2_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename Operand1, typename Operand2>
        struct GreaterThanCmp<SeqWalk, Operand1, Operand2> {
@@ -10256,7 +10256,7 @@
 
           Operand2 operand2_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename Operand1, typename Operand2>
           struct GreaterThanCmp<GPUWalk, Operand1, Operand2> {
             public:
@@ -10287,7 +10287,7 @@
 
              Operand2 operand2_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename Operand1, typename Operand2>
        struct GreaterThanCmp<Reduction, Operand1, Operand2> {
@@ -10984,20 +10984,20 @@
                               typename Operand2::SeqWalkType> typedef
           SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              GreaterThanEqualCmp<Resize,
                                  typename Operand1::ResizeType,
                                  typename Operand2::ResizeType> typedef
              ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              GreaterThanEqualCmp<GPUWalk,
                                  typename Operand1::GPUWalkType,
                                  typename Operand2::GPUWalkType> typedef
              GPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           GreaterThanEqualCmp<Reduction,
@@ -11021,16 +11021,16 @@
                                 operand2_.init(minus, plus, shift));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(operand1_.resize(minus, plus),
                                   operand2_.resize(minus, plus));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const {
                 return (operand1_.cpu_ready() && operand2_.cpu_ready());
              }
@@ -11053,13 +11053,13 @@
                                                       deviceIndex));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    operand1_.gpu_prep(deviceIndex); operand2_.gpu_prep(deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -11074,7 +11074,7 @@
 
           Operand2 const operand2_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename Operand1, typename Operand2>
           struct GreaterThanEqualCmp<Resize, Operand1, Operand2> {
             public:
@@ -11100,7 +11100,7 @@
 
              Operand2 const operand2_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename Operand1, typename Operand2>
        struct GreaterThanEqualCmp<SeqWalk, Operand1, Operand2> {
@@ -11123,7 +11123,7 @@
 
           Operand2 operand2_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename Operand1, typename Operand2>
           struct GreaterThanEqualCmp<GPUWalk, Operand1, Operand2> {
             public:
@@ -11155,7 +11155,7 @@
 
              Operand2 operand2_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename Operand1, typename Operand2>
        struct GreaterThanEqualCmp<Reduction, Operand1, Operand2> {
@@ -11891,18 +11891,18 @@
                 typename Operand1::SeqWalkType,
                 typename Operand2::SeqWalkType> typedef SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              AndOp<Resize,
                    typename Operand1::ResizeType,
                    typename Operand2::ResizeType> typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              AndOp<GPUWalk,
                    typename Operand1::GPUWalkType,
                    typename Operand2::GPUWalkType> typedef GPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           AndOp<Reduction,
@@ -11924,16 +11924,16 @@
                                 operand2_.init(minus, plus, shift));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(operand1_.resize(minus, plus),
                                   operand2_.resize(minus, plus));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const {
                 return (operand1_.cpu_ready() && operand2_.cpu_ready());
              }
@@ -11956,13 +11956,13 @@
                                                       deviceIndex));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    operand1_.gpu_prep(deviceIndex); operand2_.gpu_prep(deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -11977,7 +11977,7 @@
 
           Operand2 const operand2_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename Operand1, typename Operand2>
           struct AndOp<Resize, Operand1, Operand2> {
             public:
@@ -12001,7 +12001,7 @@
 
              Operand2 const operand2_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename Operand1, typename Operand2>
        struct AndOp<SeqWalk, Operand1, Operand2> {
@@ -12023,7 +12023,7 @@
 
           Operand2 operand2_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename Operand1, typename Operand2>
           struct AndOp<GPUWalk, Operand1, Operand2> {
             public:
@@ -12054,7 +12054,7 @@
 
              Operand2 operand2_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename Operand1, typename Operand2>
        struct AndOp<Reduction, Operand1, Operand2> {
@@ -12271,18 +12271,18 @@
                typename Operand1::SeqWalkType,
                typename Operand2::SeqWalkType> typedef SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              OrOp<Resize,
                   typename Operand1::ResizeType,
                   typename Operand2::ResizeType> typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              OrOp<GPUWalk,
                   typename Operand1::GPUWalkType,
                   typename Operand2::GPUWalkType> typedef GPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           OrOp<Reduction,
@@ -12304,16 +12304,16 @@
                                 operand2_.init(minus, plus, shift));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(operand1_.resize(minus, plus),
                                   operand2_.resize(minus, plus));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const {
                 return (operand1_.cpu_ready() && operand2_.cpu_ready());
              }
@@ -12336,13 +12336,13 @@
                                                       deviceIndex));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    operand1_.gpu_prep(deviceIndex); operand2_.gpu_prep(deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -12357,7 +12357,7 @@
 
           Operand2 const operand2_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename Operand1, typename Operand2>
           struct OrOp<Resize, Operand1, Operand2> {
             public:
@@ -12381,7 +12381,7 @@
 
              Operand2 const operand2_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename Operand1, typename Operand2>
        struct OrOp<SeqWalk, Operand1, Operand2> {
@@ -12403,7 +12403,7 @@
 
           Operand2 operand2_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename Operand1, typename Operand2>
           struct OrOp<GPUWalk, Operand1, Operand2> {
             public:
@@ -12434,7 +12434,7 @@
 
              Operand2 operand2_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename Operand1, typename Operand2>
        struct OrOp<Reduction, Operand1, Operand2> {
@@ -12647,14 +12647,14 @@
          public:
           NotOp<SeqWalk, typename Operand::SeqWalkType> typedef SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              NotOp<Resize, typename Operand::ResizeType> typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              NotOp<GPUWalk, typename Operand::GPUWalkType> typedef GPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           NotOp<Reduction, typename Operand::ReductionType> typedef
@@ -12674,15 +12674,15 @@
              return SeqWalkType(operand_.init(minus, plus, shift));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(operand_.resize(minus, plus));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const { return (operand_.cpu_ready()); }
 
              inline bool gpu_ready(int const deviceIndex) const {
@@ -12699,13 +12699,13 @@
                                                      deviceIndex));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    operand_.gpu_prep(deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -12717,7 +12717,7 @@
          private:
           Operand const operand_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename Operand>
           struct NotOp<Resize, Operand> {
             public:
@@ -12736,7 +12736,7 @@
             private:
              Operand const operand_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename Operand>
        struct NotOp<SeqWalk, Operand> {
@@ -12754,7 +12754,7 @@
          private:
           Operand operand_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename Operand>
           struct NotOp<GPUWalk, Operand> {
             public:
@@ -12775,7 +12775,7 @@
             private:
              Operand operand_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename Operand>
        struct NotOp<Reduction, Operand> {
@@ -12837,18 +12837,18 @@
                  typename Operand1::SeqWalkType,
                  typename Operand2::SeqWalkType> typedef SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              MaxFcn<Resize,
                     typename Operand1::ResizeType,
                     typename Operand2::ResizeType> typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              MaxFcn<GPUWalk,
                     typename Operand1::GPUWalkType,
                     typename Operand2::GPUWalkType> typedef GPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           MaxFcn<Reduction,
@@ -12870,16 +12870,16 @@
                                 operand2_.init(minus, plus, shift));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(operand1_.resize(minus, plus),
                                   operand2_.resize(minus, plus));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const {
                 return (operand1_.cpu_ready() && operand2_.cpu_ready());
              }
@@ -12902,13 +12902,13 @@
                                                       deviceIndex));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    operand1_.gpu_prep(deviceIndex); operand2_.gpu_prep(deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -12923,7 +12923,7 @@
 
           Operand2 const operand2_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename Operand1, typename Operand2>
           struct MaxFcn<Resize, Operand1, Operand2> {
             public:
@@ -12947,7 +12947,7 @@
 
              Operand2 const operand2_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename Operand1, typename Operand2>
        struct MaxFcn<SeqWalk, Operand1, Operand2> {
@@ -12970,7 +12970,7 @@
 
           Operand2 operand2_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename Operand1, typename Operand2>
           struct MaxFcn<GPUWalk, Operand1, Operand2> {
             public:
@@ -13002,7 +13002,7 @@
 
              Operand2 operand2_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename Operand1, typename Operand2>
        struct MaxFcn<Reduction, Operand1, Operand2> {
@@ -13630,18 +13630,18 @@
                  typename Operand1::SeqWalkType,
                  typename Operand2::SeqWalkType> typedef SeqWalkType;
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              MinFcn<Resize,
                     typename Operand1::ResizeType,
                     typename Operand2::ResizeType> typedef ResizeType;
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              MinFcn<GPUWalk,
                     typename Operand1::GPUWalkType,
                     typename Operand2::GPUWalkType> typedef GPUWalkType;
-#         endif
+          #endif
           /* __CUDACC__ */
 
           MinFcn<Reduction,
@@ -13663,16 +13663,16 @@
                                 operand2_.init(minus, plus, shift));
           }
 
-#         ifdef FIELD_EXPRESSION_THREADS
+          #ifdef FIELD_EXPRESSION_THREADS
              inline ResizeType resize(structured::IntVec const & minus,
                                       structured::IntVec const & plus) const {
                 return ResizeType(operand1_.resize(minus, plus),
                                   operand2_.resize(minus, plus));
              }
-#         endif
+          #endif
           /* FIELD_EXPRESSION_THREADS */
 
-#         ifdef __CUDACC__
+          #ifdef __CUDACC__
              inline bool cpu_ready(void) const {
                 return (operand1_.cpu_ready() && operand2_.cpu_ready());
              }
@@ -13695,13 +13695,13 @@
                                                       deviceIndex));
              }
 
-#            ifdef NEBO_GPU_TEST
+             #ifdef NEBO_GPU_TEST
                 inline void gpu_prep(int const deviceIndex) const {
                    operand1_.gpu_prep(deviceIndex); operand2_.gpu_prep(deviceIndex);
                 }
-#            endif
+             #endif
              /* NEBO_GPU_TEST */
-#         endif
+          #endif
           /* __CUDACC__ */
 
           inline ReductionType reduce_init(structured::IntVec const & minus,
@@ -13716,7 +13716,7 @@
 
           Operand2 const operand2_;
       };
-#     ifdef FIELD_EXPRESSION_THREADS
+      #ifdef FIELD_EXPRESSION_THREADS
          template<typename Operand1, typename Operand2>
           struct MinFcn<Resize, Operand1, Operand2> {
             public:
@@ -13740,7 +13740,7 @@
 
              Operand2 const operand2_;
          }
-#     endif
+      #endif
       /* FIELD_EXPRESSION_THREADS */;
       template<typename Operand1, typename Operand2>
        struct MinFcn<SeqWalk, Operand1, Operand2> {
@@ -13763,7 +13763,7 @@
 
           Operand2 operand2_;
       };
-#     ifdef __CUDACC__
+      #ifdef __CUDACC__
          template<typename Operand1, typename Operand2>
           struct MinFcn<GPUWalk, Operand1, Operand2> {
             public:
@@ -13795,7 +13795,7 @@
 
              Operand2 operand2_;
          }
-#     endif
+      #endif
       /* __CUDACC__ */;
       template<typename Operand1, typename Operand2>
        struct MinFcn<Reduction, Operand1, Operand2> {
